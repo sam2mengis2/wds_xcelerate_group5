@@ -1,0 +1,2 @@
+# Normalize line endings so Windows and Mac users don't fight over CRLF/LF
+* text=auto eol=lf

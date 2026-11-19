@@ -125,4 +125,18 @@ describe('form output matches the server’s ListingInput', () => {
     const result = ListingInput.safeParse(strip(landlordToListing(v)));
     expect(result.error?.issues ?? []).toEqual([]);
   });
+
+  test('house number becomes the private streetAddress used for Western Verified', () => {
+    const v = landlordListingSchema.parse({ ...place, houseNumber: '1066', type: 'house', lease: '12', roomsOpen: '4', onWesternList: true });
+    const listing = landlordToListing(v);
+    expect(listing.streetAddress).toBe('1066 Broughdale Ave');
+    expect(listing.address).toBe('Broughdale Ave, Broughdale'); // the public address still has no number
+    expect(ListingInput.safeParse(strip(listing)).success).toBe(true);
+  });
+
+  test('house number is optional and must look like one', () => {
+    expect(landlordToListing(landlordListingSchema.parse({ ...place, type: 'house', lease: '12', roomsOpen: '4', onWesternList: false })).streetAddress).toBeUndefined();
+    expect(subletSchema.safeParse({ ...place, houseNumber: 'Unit 4', type: 'room', availableTo: '2027-08-31' }).success).toBe(false);
+    expect(subletSchema.safeParse({ ...place, houseNumber: '12A', type: 'room', availableTo: '2027-08-31' }).success).toBe(true);
+  });
 });

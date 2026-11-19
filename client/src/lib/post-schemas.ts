@@ -45,12 +45,20 @@ const street = z
   .min(3, 'Write the street name')
   .max(60, 'Keep the street under 60 characters')
   .refine((s) => !/^\d/.test(s), 'Leave out the house number; it is shared after someone knocks');
+/** Private: only used to match Western's Off-Campus Housing list. Optional. */
+const houseNumber = z
+  .string()
+  .trim()
+  .max(10, 'Just the house number, like 1066 or 12A')
+  .refine((s) => s === '' || /^\d+[a-zA-Z]?$/.test(s), 'Just the house number, like 1066 or 12A')
+  .optional();
 const name = z.string().trim().min(2, 'Write your name');
 
 const placeFields = {
   title,
   price: rent,
   street,
+  houseNumber,
   neighbourhood: z.enum(NEIGHBOURHOODS, { message: 'Pick the area' }),
   beds: z.coerce.number().int().min(1).max(10),
   baths: z.coerce.number().int().min(1).max(6),
@@ -134,6 +142,7 @@ export function subletToListing(v: z.output<typeof subletSchema>): Omit<ListingR
     price: v.price,
     lease: months,
     address: `${v.street}, ${v.neighbourhood}`,
+    streetAddress: v.houseNumber ? `${v.houseNumber} ${v.street}` : undefined,
     neighbourhood: v.neighbourhood,
     housingDetails: { beds: v.beds, baths: v.baths, roomsOpen: v.type === 'room' ? 1 : v.beds },
     walkMinutes: times.walk,
@@ -161,6 +170,7 @@ export function landlordToListing(v: z.output<typeof landlordListingSchema>): Om
     price: v.price,
     lease: v.lease,
     address: `${v.street}, ${v.neighbourhood}`,
+    streetAddress: v.houseNumber ? `${v.houseNumber} ${v.street}` : undefined,
     neighbourhood: v.neighbourhood,
     housingDetails: { beds: v.beds, baths: v.baths, roomsOpen: Math.min(v.roomsOpen, v.beds) },
     walkMinutes: times.walk,
@@ -170,7 +180,7 @@ export function landlordToListing(v: z.output<typeof landlordListingSchema>): Om
     furnished: v.furnished,
     utilitiesIncluded: v.utilitiesIncluded,
     amenities: v.amenities,
-    // Checked by a person against Western's list before the badge shows.
+    // The server sets this when streetAddress is on Western's Off-Campus Housing list.
     westernVerified: false,
     landlordId: null,
     postedBy: v.name,

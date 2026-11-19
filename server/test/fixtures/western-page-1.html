@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<!-- Trimmed copy of https://offcampus.uwo.ca/listings/ saved Nov 19 2026, for parser tests.
+     Real markup; only 7 of the 50 cards, descriptions removed. -->
+<html><head><title>Rental Listings</title></head><body>
+<form class="search_listings_form" method="post" action="https://offcampus.uwo.ca/Listings/SearchListings">
+    <input hidden="" class="desc_hidden" type="checkbox" checked="checked" data-val="true" data-val-required="The Desc field is required." id="Desc" name="Desc" value="true">
+    <input hidden="" class="sort_hidden" type="text" id="Sort" name="Sort" value="">
+    <input hidden="" class="page_number_hidden" type="number" data-val="true" data-val-required="The PageNumber field is required." id="PageNumber" name="PageNumber" value="0">
+    <input hidden="" class="request-type" type="text" data-val="true" data-val-required="The requestType field is required." id="requestType" name="requestType" value="Normal">
+
+    <div id="main-search">
+        <div class="grds">
+            <div class="grd-2">
+                <div class="rent-prices">
+                    <div class="floatleft">
+                        <div class="dollar-holder">Min. $</div>
+                        <input type="text" class="rent_input" data-val="true" data-val-required="The Min Rent field is required." id="MinimumRent" name="MinimumRent" value="0">
+                    </div>
+
+                    <div class="floatright">
+                        <div class="dollar-holder">Max. $</div>
+                        <input type="text" class="rent_input" data-val="true" data-val-required="The Max Rent field is required." id="MaximumRent" name="MaximumRent" value="7000">
+                    </div>
+                </div>
+                <div class="clearfix">&nbsp;</div>
+                <div class="flexit">
+                    <div class="bedrooms_input">
+                        <label for="NumberOfBedrooms">Bedrooms</label><br>
+                        <select id="NumberOfBedrooms" name="NumberOfBedrooms"><option selected="selected" value="0">Any</option>
+<option value="1">0 - Bachelors</option>
+<option value="2">1</option>
+<option value="3">2</option>
+<option value="4">3</option>
+<option value="5">4</option>
+<option value="6">5</option>
+<option value="7">6 or more</option>
+</select>
+                    </div>
+                    <div class="mobile-hidden-filter half">
+                        <div>
+                            <label for="LocationsList">Locations</label><br>
+                            <select multiple="multiple" id="SelectedLocations" name="SelectedLocations" style="display: none;"><option value="2">Downtown</option>
+<option value="1">Old North</option>
+<option value="3">Near South</option>
+<option value="4">Near West</option>
+<option value="5">Whitehills</option>
+<option value="6">Masonville</option>
+<option value="7">North London</option>
+<option value="8">Kipps Lane</option>
+<option value="10">East London</option>
+<option value="12">Old South</option>
+<option value="11">S. E. London</option>
+<option value="14">West London</option>
+<option value="13">S. W. London</option>
+<option value="9">N. E. London</option>
+<option value="15">Outside London</option>
+<option value="16">On Campus</option>
+</select>
+                        </div>
+                        <div class="clearfix">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+            <div class="grd-2 mobile-hidden-filter">
+                <div class="tenant_type">
+                    <label for="TenantTypeId">Tenant Type</label><br>
+                    <select id="TenantTypeId" name="TenantTypeId"><option selected="selected" value="0">Any</option>
+<option value="1">Staff/Faculty</option>
+<option value="2">Graduate Student(s)</option>
+<option value="3">Student</option>
+<option value="4">International/Exchange Student</option>
+</select>
+                </div>
+                <div class="housing_input">
+                    <label for="HousingTypesList">Housing Types</label><br>
+                    <select multiple="multiple" id="SelectedHousing" name="SelectedHousing" style="display: none;"><option value="0">Bachelor Apt</option>
+<option value="1">Apartment</option>
+<option value="2">House</option>
+<option value="6">Apt to Share</option>
+<option value="7">House to Share</option>
+<option value="13">Rooms</option>
+<option value="11">Temporary</option>
+<option value="12">Sublets</option>
+</select>
+                </div>
+                <div class="clearfix">&nbsp;</div>
+                <div>
+                    <div class="distance_input">
+                        <label for="Distance">Distance from UWO</label><br>
+                        <select id="Distance" name="Distance"><option selected="selected" value="0">All Distances</option>
+<option value="1">&lt; 2km from UWO</option>
+<option value="2">2km - 4.9km from UWO</option>
+<option value="3">5.0km - 9.9km from UWO</option>
+<option value="4">&gt; 10km from UWO</option>
+</select>
+                    </div>
+
+                    <div class="posted_input">
+                        <label for="Posted">Posted</label><br>
+                        <select id="Posted" name="Posted"><option value="0">Anytime</option>
+<option value="1">Last 14 Days</option>
+</select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-hidden-filter">
+            <div class="clearfix">&nbsp;</div>
+            <div id="s-amenities-btn" class="btn btn-s-less">Amenities</div>
+            <div id="s-amenities" style="display: none;">
+                
+<div class="grd-4">
+    <input data-val="true" data-val-required="The IsSelected field is required." id="AmenitiesCheckList_0__IsSelected" name="AmenitiesCheckList[0].IsSelected" type="checkbox" value="true">
+    Utilities Incl
+    <input data-val="true" data-val-required="The Id field is required." id="AmenitiesCheckList_0__Id" name="AmenitiesCheckList[0].Id" type="hidden" value="1">
+</div>
+
+<div class="grd-4">
+    <input data-val="true" data-val-required="The IsSelected field is required." id="AmenitiesCheckList_1__IsSelected" name="AmenitiesCheckList[1].IsSelected" type="checkbox" value="true">
+    A/C
+    <input data-val="true" data-val-required="The Id field is required." id="AmenitiesCheckList_1__Id" name="AmenitiesCheckList[1].Id" type="hidden" value="2">
+</div>
+
+<div class="grd-4">
+    <input data-val="true" data-val-required="The IsSelected field is required." id="AmenitiesCheckList_2__IsSelected" name="AmenitiesCheckList[2].IsSelected" type="checkbox" value="true">
+    Private Bathroom
+    <input data-val="true" data-val-required="The Id field is required." id="AmenitiesCheckList_2__Id" name="AmenitiesCheckList[2].Id" type="hidden" value="3">
+</div>
+
+<div class="grd-4">
+    <input data-val="true" data-val-required="The IsSelected field is required." id="AmenitiesCheckList_3__IsSelected" name="AmenitiesCheckList[3].IsSelected" type="checkbox" value="true">
+    Furnished Bdrm(s)
+    <input data-val="true" data-val-required="The Id field is required." id="AmenitiesCheckList_3__Id" name="AmenitiesCheckList[3].Id" type="hidden" value="4">
+</div>
+
+<div class="grd-4">
+    <input data-val="true" data-val-required="The IsSelected field is required." id="AmenitiesCheckList_4__IsSelected" name="AmenitiesCheckList[4].IsSelected" type="checkbox" value="true">
+    Furniture Incl
+    <input data-val="true" data-val-required="The Id field is required." id="AmenitiesCheckList_4__Id" name="AmenitiesCheckList[4].Id" type="hidden" value="5">
+</div>
+
+<div class="grd-4">
+    <input data-val="true" data-val-required="The IsSelected field is required." id="AmenitiesCheckList_5__IsSelected" name="AmenitiesCheckList[5].IsSelected" type="checkbox" value="true">
+    Transit
+    <input data-val="true" data-val-required="The Id field is required." id="AmenitiesCheckList_5__Id" name="AmenitiesCheckList[5].Id" type="hidden" value="6">
+</div>
+
+<div class="grd-4">
+    <input data-val="true" data-val-required="The IsSelected field is required." id="AmenitiesCheckList_6__IsSelected" name="AmenitiesCheckList[6].IsSelected" type="checkbox" value="true">
+    Laundry
+    <input data-val="true" data-val-required="The Id field is required." id="AmenitiesCheckList_6__Id" name="AmenitiesCheckList[6].Id" type="hidden" value="7">
+</div>
+
+<div class="grd-4">
+    <input data-val="true" data-val-required="The IsSelected field is required." id="AmenitiesCheckList_7__IsSelected" name="AmenitiesCheckList[7].IsSelected" type="checkbox" value="true">
+    Dishwasher
+    <input data-val="true" data-val-required="The Id field is required." id="AmenitiesCheckList_7__Id" name="AmenitiesCheckList[7].Id" type="hidden" value="8">
+</div>
+
+<div class="grd-4">
+    <input data-val="true" data-val-required="The IsSelected field is required." id="AmenitiesCheckList_8__IsSelected" name="AmenitiesCheckList[8].IsSelected" type="checkbox" value="true">
+    Parking
+    <input data-val="true" data-val-required="The Id field is required." id="AmenitiesCheckList_8__Id" name="AmenitiesCheckList[8].Id" type="hidden" value="9">
+</div>
+
+<div class="grd-4">
+    <input data-val="true" data-val-required="The IsSelected field is required." id="AmenitiesCheckList_9__IsSelected" name="AmenitiesCheckList[9].IsSelected" type="checkbox" value="true">
+    Accessible
+    <input data-val="true" data-val-required="The Id field is required." id="AmenitiesCheckList_9__Id" name="AmenitiesCheckList[9].Id" type="hidden" value="10">
+</div>
+
+<div class="grd-4">
+    <input data-val="true" data-val-required="The IsSelected field is required." id="AmenitiesCheckList_10__IsSelected" name="AmenitiesCheckList[10].IsSelected" type="checkbox" value="true">
+    Cable Incl
+    <input data-val="true" data-val-required="The Id field is required." id="AmenitiesCheckList_10__Id" name="AmenitiesCheckList[10].Id" type="hidden" value="11">
+</div>
+
+<div class="grd-4">
+    <input data-val="true" data-val-required="The IsSelected field is required." id="AmenitiesCheckList_11__IsSelected" name="AmenitiesCheckList[11].IsSelected" type="checkbox" value="true">
+    Microwave
+    <input data-val="true" data-val-required="The Id field is required." id="AmenitiesCheckList_11__Id" name="AmenitiesCheckList[11].Id" type="hidden" value="12">
+</div>
+
+<div class="grd-4">
+    <input data-val="true" data-val-required="The IsSelected field is required." id="AmenitiesCheckList_12__IsSelected" name="AmenitiesCheckList[12].IsSelected" type="checkbox" value="true">
+    Internet Incl
+    <input data-val="true" data-val-required="The Id field is required." id="AmenitiesCheckList_12__Id" name="AmenitiesCheckList[12].Id" type="hidden" value="17">
+</div>
+
+            </div>
+        </div>
+        <div class="clearfix">&nbsp;</div>
+         <button type="button" class="btn btn-listing-a hide-roommate-btn" id="btn-roommate-search" onclick="setRoommateWanted()" style="display: block;">Roommates Wanted</button>
+        <div class="clearfix">&nbsp;</div>
+        <button class="btn btn-listing-c" id="btn-main-search-more">More Options</button>
+        <button class="btn btn-listing-c" id="btn-main-search-less">Less Options</button>
+        <div>
+            <p>Please be advised that Western University does not endorse, approve, or confirm the accuracy of the content posted on this website.
+            <a data-popup-open="popup-2" href="https://offcampus.uwo.ca/listings/#" style="text-decoration: underline">Read the full Prospective Tenants Notice.</a></p>
+        </div>
+        <button type="submit" class="btn btn-listing-a" id="btn-main-search">Search</button>
+        <div class="clearfix">&nbsp;</div>
+    </div>
+<input name="Desc" type="hidden" value="false"><input name="AmenitiesCheckList[0].IsSelected" type="hidden" value="false"><input name="AmenitiesCheckList[1].IsSelected" type="hidden" value="false"><input name="AmenitiesCheckList[2].IsSelected" type="hidden" value="false"><input name="AmenitiesCheckList[3].IsSelected" type="hidden" value="false"><input name="AmenitiesCheckList[4].IsSelected" type="hidden" value="false"><input name="AmenitiesCheckList[5].IsSelected" type="hidden" value="false"><input name="AmenitiesCheckList[6].IsSelected" type="hidden" value="false"><input name="AmenitiesCheckList[7].IsSelected" type="hidden" value="false"><input name="AmenitiesCheckList[8].IsSelected" type="hidden" value="false"><input name="AmenitiesCheckList[9].IsSelected" type="hidden" value="false"><input name="AmenitiesCheckList[10].IsSelected" type="hidden" value="false"><input name="AmenitiesCheckList[11].IsSelected" type="hidden" value="false"><input name="AmenitiesCheckList[12].IsSelected" type="hidden" value="false"></form>
+<div class="results"><span class="item_count">Search results: 1 - 50 (of 1003)</span> as of November 19, 2026</p></div>
+<div class="rental-listing">&nbsp;</div>
+<div class="rental-listing">
+        <a class="rental-listing-img" style="background-image: url(https://offcampus.uwo.ca/assets/listing_images/61959-1.jpg);" href="https://offcampus.uwo.ca/Listings/Details/61959">&nbsp;</a>
+        <div class="rental-listing-details">
+            <h2><strong>
+        <a href="https://offcampus.uwo.ca/Listings/Details/61959">49 Woodward Avenue</a>
+
+    <a data-popup-open="popup-1" href="#" class="location_map_link">
+        Near South
+    </a>
+</strong>
+            </h2>
+            <h3><strong>$850   </strong>, 5 Bedroom(s) Vacant</h3>
+            <h4>Available Immediately</h4>
+            <div>
+                <img src="./webpage_html_files/deco_more_text.png" alt="more text...">
+                <p>Description removed from the test copy.</p>
+            </div>
+
+            <a href="https://offcampus.uwo.ca/Listings/Details/61959">
+                <button class="btn btn-listing-a">Details</button>
+            </a>
+
+        </div>
+    </div>
+<div class="rental-listing">
+        <a class="rental-listing-img" style="background-image: url(https://offcampus.uwo.ca/assets/listing_images/63885-1.jpg);" href="https://offcampus.uwo.ca/Listings/Details/63885">&nbsp;</a>
+        <div class="rental-listing-details">
+            <h2><strong>
+        <a href="https://offcampus.uwo.ca/Listings/Details/63885">1066 Richmond St</a>
+
+    <a data-popup-open="popup-1" href="#" class="location_map_link">
+        Old North
+    </a>
+</strong>
+            </h2>
+            <h3><strong>$1050  + per bdrm</strong>, 7 Bedroom(s) Vacant</h3>
+            <h4>Available May 1, 2027</h4>
+            <div>
+                <img src="./webpage_html_files/deco_more_text.png" alt="more text...">
+                <p>Description removed from the test copy.</p>
+            </div>
+
+            <a href="https://offcampus.uwo.ca/Listings/Details/63885">
+                <button class="btn btn-listing-a">Details</button>
+            </a>
+
+        </div>
+    </div>
+<div class="rental-listing">
+        <a class="rental-listing-img" style="background-image: url(https://offcampus.uwo.ca/assets/listing_images/54619-1.jpg);" href="https://offcampus.uwo.ca/Listings/Details/54619">&nbsp;</a>
+        <div class="rental-listing-details">
+            <h2><strong>
+            <a href="https://offcampus.uwo.ca/Listings/Details/54619">Regent&amp;Harrison</a>
+
+    <a data-popup-open="popup-1" href="#" class="location_map_link">
+        Old North
+    </a>
+</strong>
+            </h2>
+            <h3><strong>$1195   per bdrm</strong>, 2 Bedroom(s) Vacant</h3>
+            <h4>Available January 1, 2027</h4>
+            <div>
+                <img src="./webpage_html_files/deco_more_text.png" alt="more text...">
+                <p>Description removed from the test copy.</p>
+            </div>
+
+            <a href="https://offcampus.uwo.ca/Listings/Details/54619">
+                <button class="btn btn-listing-a">Details</button>
+            </a>
+
+        </div>
+    </div>
+<div class="rental-listing">
+        <a class="rental-listing-img" style="background-image: url(https://offcampus.uwo.ca/assets/listing_images/63633-1.jpg);" href="https://offcampus.uwo.ca/Listings/Details/63633">&nbsp;</a>
+        <div class="rental-listing-details">
+            <h2><strong>
+        <a href="https://offcampus.uwo.ca/Listings/Details/63633">302 Wharncliffe</a>
+
+    <a data-popup-open="popup-1" href="#" class="location_map_link">
+        Near South
+    </a>
+</strong>
+            </h2>
+            <h3><strong>$900   </strong>, 4 Bedroom(s) Vacant</h3>
+            <h4>Available May 1, 2027</h4>
+            <div>
+                <img src="./webpage_html_files/deco_more_text.png" alt="more text...">
+                <p>Description removed from the test copy.</p>
+            </div>
+
+            <a href="https://offcampus.uwo.ca/Listings/Details/63633">
+                <button class="btn btn-listing-a">Details</button>
+            </a>
+
+        </div>
+    </div>
+<div class="rental-listing">
+        <a class="rental-listing-img" style="background-image: url(https://offcampus.uwo.ca/assets/listing_images/64110-1.jpg);" href="https://offcampus.uwo.ca/Listings/Details/64110">&nbsp;</a>
+        <div class="rental-listing-details">
+            <h2><strong>
+        <a href="https://offcampus.uwo.ca/Listings/Details/64110">1548 Richmond Streeet</a>
+
+    <a data-popup-open="popup-1" href="#" class="location_map_link">
+        Masonville
+    </a>
+</strong>
+            </h2>
+            <h3><strong>$950  + per bdrm</strong>, 5 Bedroom(s) Vacant</h3>
+            <h4>Available May 1, 2027</h4>
+            <div>
+                <img src="./webpage_html_files/deco_more_text.png" alt="more text...">
+                <p>Description removed from the test copy.</p>
+            </div>
+
+            <a href="https://offcampus.uwo.ca/Listings/Details/64110">
+                <button class="btn btn-listing-a">Details</button>
+            </a>
+
+        </div>
+    </div>
+<div class="rental-listing">
+        <a class="rental-listing-img" style="background-image: url(https://offcampus.uwo.ca/assets/listing_images/no_image_available.jpg);" href="https://offcampus.uwo.ca/Listings/Details/64098">&nbsp;</a>
+        <div class="rental-listing-details">
+            <h2><strong>
+        <a href="https://offcampus.uwo.ca/Listings/Details/64098">23 partridge street</a>
+
+    <a data-popup-open="popup-1" href="#" class="location_map_link">
+        Old North
+    </a>
+</strong>
+            </h2>
+            <h3><strong>$2000  + </strong>, 3 Bedroom(s) Vacant</h3>
+            <h4>Available January 1, 2027</h4>
+            <div>
+                <img src="./webpage_html_files/deco_more_text.png" alt="more text...">
+                <p>Description removed from the test copy.</p>
+            </div>
+
+            <a href="https://offcampus.uwo.ca/Listings/Details/64098">
+                <button class="btn btn-listing-a">Details</button>
+            </a>
+
+        </div>
+    </div>
+<div class="rental-listing">
+        <a class="rental-listing-img" style="background-image: url(https://offcampus.uwo.ca/assets/listing_images/62898-1.jpg);" href="https://offcampus.uwo.ca/Listings/Details/62898">&nbsp;</a>
+        <div class="rental-listing-details">
+            <h2><strong>
+        <a href="https://offcampus.uwo.ca/Listings/Details/62898">9 Oxford Street East</a>
+
+    <a data-popup-open="popup-1" href="#" class="location_map_link">
+        Downtown
+    </a>
+</strong>
+            </h2>
+            <h3><strong>$800  + per bdrm</strong>, 4 Bedroom(s) Vacant</h3>
+            <h4>Available May 1, 2027</h4>
+            <div>
+                <img src="./webpage_html_files/deco_more_text.png" alt="more text...">
+                <p>Description removed from the test copy.</p>
+            </div>
+
+            <a href="https://offcampus.uwo.ca/Listings/Details/62898">
+                <button class="btn btn-listing-a">Details</button>
+            </a>
+
+        </div>
+    </div>
+<div class="clearfix">&nbsp;</div>
+<ul class="pagination">
+
+
+                <li class="current-page">1</li>
+                <li class="page-item"><span onclick="GoToPage(1)">2</span></li>
+                <li class="page-item"><span onclick="GoToPage(2)">3</span></li>
+                <li class="page-item"><span onclick="GoToPage(3)">4</span></li>
+                <li class="page-item"><span onclick="GoToPage(4)">5</span></li>
+                <li class="page-item"><span onclick="GoToPage(5)">6</span></li>
+                <li class="page-item"><span onclick="GoToPage(6)">7</span></li>
+                <li class="page-item"><span onclick="GoToPage(7)">8</span></li>
+                <li class="page-item"><span onclick="GoToPage(8)">9</span></li>
+                <li class="page-item"><span onclick="GoToPage(9)">10</span></li>
+                <li class="page-item"><span onclick="GoToPage(10)">11</span></li>
+                <li class="page-item"><span onclick="GoToPage(11)">12</span></li>
+                <li class="page-item"><span onclick="GoToPage(12)">13</span></li>
+                <li class="page-item"><span onclick="GoToPage(13)">14</span></li>
+                <li class="page-item"><span onclick="GoToPage(14)">15</span></li>
+                <li class="page-item"><span onclick="GoToPage(15)">16</span></li>
+                <li class="page-item"><span onclick="GoToPage(16)">17</span></li>
+                <li class="page-item"><span onclick="GoToPage(17)">18</span></li>
+                <li class="page-item"><span onclick="GoToPage(18)">19</span></li>
+                <li class="page-item"><span onclick="GoToPage(19)">20</span></li>
+                <li class="page-item"><span onclick="GoToPage(20)">21</span></li>
+
+            <li><span onclick="GoToPage(0 + 1)" aria-label="Previous">»</span></li>
+
+    </ul>
+</body></html>

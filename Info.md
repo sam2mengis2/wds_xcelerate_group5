@@ -86,7 +86,7 @@ Sign-up, sign-in (email + password or magic link), email verification and sign-o
 - The nav and the post page read the role from `GET /api/auth/me`. Sublets need a student account and leases need a landlord account.
 - Listings come from the API, and the seed listings in `client/src/data/listings.ts` are shown after them. Reviews and landlords are still local mock data in `client/src/data/api.ts` until their endpoints exist.
 
-**Running it locally:** fill in `server/.env` and `client/.env`, run `npm run migrate -w server` once, then `npm run dev` from the repo root (Express on 3001, Vite on 5173, `/api` proxied).
+**Running it locally:** fill in `server/.env` and `client/.env`, run `npm run migrate -w server` once (and again after pulling new migrations), then `npm run dev` from the repo root (Express on 3001, Vite on 5173, `/api` proxied).
 
 ### Listings
 
@@ -102,7 +102,8 @@ Leases and sublets share one `listings` table and these routes. A sublet is a li
 | GET    | `/me/listings`  | Signed in: Everything I've posted, including ended sublets |
 
 - Sublets need `availableTo` after `availableFrom`. Leases have no end date.
-- `westernVerified` is always false when posted. Only the Western scrape sets it (Sam).
+- `westernVerified` can't be set by the poster. The server sets it when the private `streetAddress` matches Western's list (see Verification).
+- `streetAddress` (optional, private): full address with the house number. Accepted on POST/PATCH, never returned.
 - `landlordId` is the poster for leases and null for sublets. Sam: add the foreign key once the landlords table exists.
 - Ratings (`rating`, `reviewCount`) will be added with the reviews endpoints.
 
@@ -141,8 +142,21 @@ A group is one post on the Roommates board (`kind`: `have-place`, `need-place` o
 - `haveCount` is how many people are already in, the poster included. Friends who aren't on the app (`haveCount - 1`) take up spots and show as "Housemate 1", "Housemate 2"…
 - Frontend: the Roommates board shows API groups first, then the seed posts. API groups get a Join/Leave button; seed posts keep the Knock button.
 
-### Verification
+### Verification (Western Verified)
 
-| Method | Route                  | Purpose                                                     |
-| ------ | ---------------------- | ----------------------------------------------------------- |
-| POST   | `/verification/scrape` | Signed in, admin only: pull Western's off-campus listings, mark verified |
+A listing gets the Western Verified badge when its street address is also on Western's Off-Campus Housing site (https://offcampus.uwo.ca/listings/). Code: `server/src/verification/`.
+
+| Method | Route                       | Purpose                                                                 |
+| ------ | --------------------------- | ----------------------------------------------------------------------- |
+| POST   | `/verification/scrape`      | Signed in, admin only: start a scrape. Returns 202 right away; it takes about a minute. 409 if one is running. |
+| GET    | `/verification/runs`        | Signed in, admin only: the last 10 runs (status, pages, listings seen, how many of ours are verified, error). |
+
+Or from the command line: `npm run scrape:western -w server` (needs `SCRAPER_CONTACT` in `server/.env`). Run it about once a day, not more.
+
+How it works:
+- **Scrape:** fetches page 1, then POSTs Western's search form with `PageNumber` = 1, 2, ... like clicking the page numbers (about 21 pages of 50). One request every 3 seconds, an honest User-Agent with our contact email, robots.txt checked first, and it stops if Western returns 429/503. It saves only what matching needs (address, area, price, bedrooms, date) in `western_listings`, not their descriptions or photos.
+- **Match:** listings have a private `streetAddress` ("1066 Richmond St"), set from the optional "House number" field on the post form. It is never returned by the API; the public `address` still has no house number. Addresses are normalized (`St`/`Street`/`Streeet`, `E`/`East`, units dropped) and match on house number + street name; suffix and direction must agree when both sides have them. Intersections ("Regent & Harrison", about 1 in 6 Western ads) can't be tied to one house, so they never match.
+- **Badges:** after a complete scrape (at least 90% of Western's own count), every listing's `westernVerified` is recomputed, so the badge comes off when the ad leaves Western's site. A partial or failed scrape adds what it saw but takes no badges away. Posting a listing, or PATCHing its `streetAddress`, checks it straight away against the last scrape.
+- **If Western changes their page:** the scrape fails loudly ("Has the site changed?", "Asked for page 2 but got ...") instead of un-verifying everything. Update `server/src/verification/western.ts` and the saved page in `server/test/fixtures/western-page-1.html`.
+- **Other sites** (rentals.ca, Kijiji, Facebook Marketplace, Craigslist, realtor.ca) forbid scraping in their terms. Only add one with written permission, as a new parser next to `western.ts`.
+- **Before turning it on:** check Western's terms and robots.txt (the scraper obeys robots.txt automatically), and ideally email off-campus.housing@uwo.ca to say what we're doing.

@@ -127,6 +127,7 @@ const subletInitial: SubletValues = {
   title: '',
   price: '',
   street: '',
+  houseNumber: '',
   neighbourhood: 'Broughdale',
   beds: '4',
   baths: '1',
@@ -258,7 +259,7 @@ function LandlordForm() {
               <BadgeCheck size={16} aria-hidden="true" /> This property is on Western’s Off-Campus Housing list
             </span>
             <span className="mt-1 block font-text text-sm">
-              We match it against Western’s listings before the Western Verified badge appears.
+              Add the house number above and we’ll match it against Western’s listings. The Western Verified badge appears once it matches.
             </span>
           </span>
         </label>
@@ -440,6 +441,13 @@ function PlaceBasics({ v, errors, set }: { v: PlaceValues; errors: Record<string
     <>
       <Field label="Street" hint="Just the street. The full address is shared after someone knocks." error={errors.street}>
         {(a) => <TextInput {...a} name="street" placeholder="Broughdale Ave" value={v.street} onChange={(e) => set('street', e.target.value)} />}
+      </Field>
+      <Field
+        label="House number (optional)"
+        hint="Never shown. If the place is on Western’s Off-Campus Housing list, we use it to add the Western Verified badge."
+        error={errors.houseNumber}
+      >
+        {(a) => <TextInput {...a} name="houseNumber" inputMode="numeric" placeholder="1066" value={v.houseNumber ?? ''} onChange={(e) => set('houseNumber', e.target.value)} />}
       </Field>
       <Field label="Area" hint={`About ${AREA_TIMES[v.neighbourhood as keyof typeof AREA_TIMES]?.walk ?? '–'} min walk to campus`}>
         {(a) => (

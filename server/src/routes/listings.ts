@@ -13,11 +13,14 @@ import {
   MAX_ACTIVE_SUBLETS,
   type Listing,
 } from '../listings/repo.ts';
+import { verifyListing } from '../verification/sync.ts';
 
 interface Deps {
   pool: Pool;
   /** requireAuth middleware (sets req.user). */
   auth: RequestHandler;
+  /** Re-checks one listing against Western's list. Swappable for tests. */
+  verify?: (pool: Pool, listingId: string) => Promise<boolean>;
 }
 
 /** Which roles may post each kind of listing. */
@@ -37,7 +40,7 @@ function parseId(id: unknown): string | null {
   return parsed.success ? parsed.data : null;
 }
 
-export function listingsRouter({ pool, auth }: Deps): Router {
+export function listingsRouter({ pool, auth, verify = verifyListing }: Deps): Router {
   const router = Router();
 
   router.get('/', async (req, res) => {
@@ -74,6 +77,8 @@ export function listingsRouter({ pool, auth }: Deps): Router {
       });
       return;
     }
+    // Already on Western's list? Badge it now instead of waiting for the next scrape.
+    if (input.streetAddress) result.listing.westernVerified = await verify(pool, result.listing.id);
     res.status(201).json(result.listing);
   });
 
@@ -102,6 +107,7 @@ export function listingsRouter({ pool, auth }: Deps): Router {
       res.status(404).json({ error: 'not_found' });
       return;
     }
+    if (patch.streetAddress !== undefined) updated.westernVerified = await verify(pool, id);
     res.json(updated);
   });
 

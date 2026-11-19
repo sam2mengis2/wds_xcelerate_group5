@@ -44,6 +44,16 @@ const ListingFields = z.object({
   price: count,
   lease: z.number().int().min(1),
   address: z.string().trim().min(1).max(200),
+  /**
+   * Private full address with the house number ("1066 Richmond St"). Never returned by the API; only
+   * matched against Western's Off-Campus Housing list for the Western Verified badge.
+   */
+  streetAddress: z
+    .string()
+    .trim()
+    .max(200)
+    .optional()
+    .transform((v) => v || undefined),
   neighbourhood: z.enum(NEIGHBOURHOODS),
   housingDetails: z.object({
     beds: count,

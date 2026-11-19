@@ -83,6 +83,8 @@ export const ListingSchema = z.object({
   lease: z.number(),
   /** Street and district only. No house numbers. */
   address: z.string(),
+  /** Private full address, only sent when posting (for Western Verified). The API never returns it. */
+  streetAddress: z.string().optional(),
   neighbourhood: z.enum(NEIGHBOURHOODS),
   housingDetails: z.object({
     beds: z.number(),

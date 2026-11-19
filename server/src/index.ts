@@ -6,6 +6,8 @@ import { auth } from './auth/index.ts';
 import { authRouter } from './routes/auth.ts';
 import { listingsRouter, meRouter } from './routes/listings.ts';
 import { errorHandler } from './errors.ts';
+import { verificationRouter } from './routes/verification.ts';
+import { failStaleRuns } from './verification/index.ts';
 
 const app = express();
 
@@ -26,6 +28,10 @@ app.use('/api/auth', authRouter(auth));
 app.use('/api/listings', listingsRouter({ pool, auth }));
 app.use('/api/me', meRouter({ pool, auth }));
 app.use('/api/groups', groupsRouter({ pool, auth }));
+app.use('/api/verification', verificationRouter({ pool, auth }));
+
+// A run that was in progress when the server last stopped will never finish.
+failStaleRuns(pool).catch((err) => console.error('Could not tidy verification runs:', err));
 
 app.use(errorHandler);
 

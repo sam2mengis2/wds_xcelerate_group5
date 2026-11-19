@@ -3,7 +3,8 @@ import type { Pool } from 'pg';
 import type { ListingInput, ListingKind, ListingPatch, ListingQuery } from './schema.ts';
 
 /** A listing as the API returns it; matches ListingRecord in client/src/data/data.ts. */
-export interface Listing extends Omit<ListingInput, 'availableTo'> {
+/** streetAddress is private: stored for Western matching, never sent back. */
+export interface Listing extends Omit<ListingInput, 'availableTo' | 'streetAddress'> {
   id: string;
   availableTo?: string;
   westernVerified: boolean;
@@ -90,6 +91,7 @@ export function toColumns(input: Partial<ListingInput> | ListingPatch): Record<s
   set('price', input.price);
   set('lease', input.lease);
   set('address', input.address);
+  set('street_address', input.streetAddress);
   set('neighbourhood', input.neighbourhood);
   set('beds', input.housingDetails?.beds);
   set('baths', input.housingDetails?.baths);
